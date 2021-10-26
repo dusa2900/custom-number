@@ -1,15 +1,13 @@
-import { Directive, ElementRef, HostBinding, HostListener } from '@angular/core';
+import { Directive,  HostBinding, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[customStyle]'
+  selector: '[Style]'
 })
 export class CustomStyleDirective {
 
  @HostBinding('style.color')
  color!:string;
-  constructor(private el:ElementRef) { 
-     
-  }
+  constructor() {}
 
   @HostListener('mouseover') 
   onMouseOver() {

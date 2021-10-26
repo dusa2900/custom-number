@@ -1,34 +1,22 @@
-import { Directive, ElementRef ,HostListener} from '@angular/core';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[customNumberOnly]'
+  selector: '[NumberOnly]'
 })
 export class CustomNumberDirective {
 
-  constructor(private el:ElementRef) { }
+  constructor(private el: ElementRef) { }
 
-  public  regEx = new RegExp('^[0-9]*$');
-  public specialKeys:Array<string>=['Backspace','ArrowLeft','ArrowRight','Delete']
+  private regEx = new RegExp('^[0-9]*$');
 
-
-
-  @HostListener('keydown',['$event']) 
-  onKeyDown(event:any)
-  {
-    if(this.specialKeys.indexOf(event.key) !== -1)
-    {
-      return;
+  @HostListener('keypress', ['$event'])
+  onKeyPress(event: any) {
+    const value = this.el.nativeElement.value.concat(event.key);
+    if (!String(value).match(this.regEx)) {
+      event.preventDefault()
     }
-    const inputValue=this.el.nativeElement.value.concat(event.key);
-    console.log(event.key);
-    if(inputValue && !String(inputValue).match(this.regEx))
-    {
-      event.preventDefault();
-    }
-  return ;   
+    return;
   }
-  
-
 
 
 }
