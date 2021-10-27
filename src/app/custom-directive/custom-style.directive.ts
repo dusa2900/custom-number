@@ -1,24 +1,16 @@
 import { Directive,  HostBinding, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[Style]'
+  selector: '[styleDirective]'
 })
 export class CustomStyleDirective {
 
- @HostBinding('style.color')
- color!:string;
-  constructor() {}
+  @HostBinding('style.color')  color!: string;
 
-  @HostListener('mouseover') 
-  onMouseOver() {
-    this.color="blue"
-    console.log("Mouse over")
-  }
- 
-  @HostListener('mouseleave') 
-  onMouseLeave() {
-    this.color="red"
-    console.log("Mouse Leave")
-  }
- 
+  @HostListener('mouseover')
+  onMouseOver() {     this.color = "blue"  }
+
+  @HostListener('mouseleave')
+  onMouseLeave() {    this.color = "red"  }
+
 }

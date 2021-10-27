@@ -1,21 +1,29 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[NumberOnly]'
+  selector: '[numberDirective]'
 })
 export class CustomNumberDirective {
 
-  constructor(private el: ElementRef) { }
-
   private regEx = new RegExp('^[0-9]*$');
+
+  constructor(private el: ElementRef) { }
 
   @HostListener('keypress', ['$event'])
   onKeyPress(event: any) {
-    const value = this.el.nativeElement.value.concat(event.key);
-    if (!String(value).match(this.regEx)) {
+    const keyValue = this.el.nativeElement.value.concat(event.key);
+    if (!String(keyValue).match(this.regEx)) {
       event.preventDefault()
     }
     return;
+  }
+
+  @HostListener('focus')
+  onFocus() {
+    const numberValue = this.el.nativeElement.value;
+    if (!String(numberValue).match(this.regEx)) {
+      this.el.nativeElement.value = "";
+    }
   }
 
 
